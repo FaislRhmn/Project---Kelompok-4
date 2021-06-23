@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Jun 2021 pada 17.00
+-- Waktu pembuatan: 20 Jun 2021 pada 12.04
 -- Versi server: 10.4.19-MariaDB
--- Versi PHP: 8.0.6
+-- Versi PHP: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_aplikasi_penjualan_buku`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_barang`
+--
+
+CREATE TABLE `tb_barang` (
+  `jumlah` int(100) NOT NULL,
+  `kategori` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `keterangan` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `kode_part` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `nama_part` varchar(100) CHARACTER SET latin1 NOT NULL,
+  `tanggal` varchar(100) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -47,10 +62,7 @@ INSERT INTO `tb_beli` (`tanggal`, `judul_buku`, `kode_buku`, `harga_satuan`, `ju
 ('2021-06-20', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 80000, 8000),
 ('2021-06-20', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 80000, 8000),
 ('2021-06-20', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 80000, 8000),
-('2021-06-20', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 80000, 8000),
-('2021-06-23', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 800000, 728000),
-('2021-06-23', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 800000, 728000),
-('2021-06-23', 'Jika Kamu', 'ISBN-9090-4545', 28000, 2, 56000, 80000, 24000);
+('2021-06-20', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 36000, 2, 72000, 80000, 8000);
 
 -- --------------------------------------------------------
 
@@ -75,12 +87,7 @@ CREATE TABLE `tb_kategori` (
 INSERT INTO `tb_kategori` (`tanggal`, `judul_buku`, `kode_buku`, `kategori_buku`, `tahun_terbit`, `jumlah_buku`, `harga_buku`) VALUES
 ('19-06-2021', 'Makan Padang', 'ISBN-0876-0987', 'Novel', '2015', 2, 35000),
 ('18-06-2021', 'Cinta Ku Padamu', 'ISBN-12345-000', 'Novel', '2013', 2, 32000),
-('23-06-2021', 'Marmut Merah Jambu', 'ISBN-1456-8976', 'Novel', '2016', 30, 80000),
-('18-06-2021', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 'Novel', '2016', 3, 36000),
-('03-06-2021', 'Aku Cinta Padanya tapi Dia Engga', 'ISBN-2345-9090', 'Novel', '2015', 90, 40000),
-('23-06-2021', 'Filosofi Teras', 'ISBN-2354-9875', 'Self Improvement', '2018', 50, 60000),
-('22-06-2021', 'Rembulan Terang', 'ISBN-5674-9087', 'Cerpen', '2019', 60, 45000),
-('06-06-2021', 'Dunia Shopee', 'ISBN-6785-7676', 'Edukasi', '2021', 50, 67000),
+('18-06-2021', 'Marlina Pembunuh dalam Empat Babak', 'ISBN-2020-5555', 'Novel', '2016', 5, 36000),
 ('18-06-2021', 'Jika Kamu', 'ISBN-9090-4545', 'Cerpen', '2019', 4, 28000);
 
 -- --------------------------------------------------------
@@ -119,28 +126,14 @@ CREATE TABLE `tb_tmp_beli` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Trigger `tb_tmp_beli`
---
-DELIMITER $$
-CREATE TRIGGER `batal` AFTER DELETE ON `tb_tmp_beli` FOR EACH ROW BEGIN
-UPDATE tb_kategori SET jumlah_buku=
-jumlah_buku + OLD.jumlah_beli
-WHERE kode_buku = OLD.kode_buku;
-END
-$$
-DELIMITER ;
-DELIMITER $$
-CREATE TRIGGER `beli` AFTER INSERT ON `tb_tmp_beli` FOR EACH ROW BEGIN
-UPDATE tb_kategori SET jumlah_buku =
-jumlah_buku - new.jumlah_beli
-WHERE kode_buku = new.`kode_buku`;
-END
-$$
-DELIMITER ;
-
---
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `tb_barang`
+--
+ALTER TABLE `tb_barang`
+  ADD PRIMARY KEY (`kode_part`);
 
 --
 -- Indeks untuk tabel `tb_kategori`
