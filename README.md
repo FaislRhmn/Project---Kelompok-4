@@ -1,4 +1,4 @@
-# Kelompok-4-2A
+# Kelompok-4-2A "Aplikasi Penjualan Buku"
 Project Mata Kuliah Pemrograman Lanjut dengan anggota:
 1. 11200930000016 Shafa Salsabila Khansa
 2. 11200930000017 Tiara Diba
